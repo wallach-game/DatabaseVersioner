@@ -45,15 +45,42 @@ echo
 echo "Do you wanna overwrite container "$CONTAINERID" with "${databasecommits[$SELECTEDCOMMIT]}
 echo
 echo "press any key to continue or CTRL+C to shutdown script"
-read
+read -n1
 echo "CLEANING ENVIROMENT"
 echo ""
-rm ../output/* -drf
+rm ../workdir/* -drf
 echo "EXTRACTING COMMIT"
-cd ../commits
 
 echo ${databasecommits[$SELECTEDCOMMIT]}
 pwd
-echo "tar -xfv "${databasecommits[$SELECTEDCOMMIT]}" -C ../../output"
-tar -xfv ${databasecommits[$SELECTEDCOMMIT]} -C ../../output
-cd ../bin
+echo tar -xvf ../commits/${databasecommits[$SELECTEDCOMMIT]} -C ../workdir
+tar -xvf ../commits/${databasecommits[$SELECTEDCOMMIT]} -C ../workdir
+mv ../workdir/output/$DATABASENAME ../workdir/$DATABASENAME
+
+
+#!!
+#TODO delete container folder
+echo "CLEANING CONTAINER"
+docker exec -it 02b3c87c4dde bash -c "cd /var/lib/mysql/$DATABASENAME; rm * -drf ; exit"
+echo "DONE"
+echo
+#cd /var/lib/mysql/$DATABASENAME
+#rm * -drf
+#exit
+cd ../workdir/
+echo "COPTING DATA TO CONTAINER"
+docker cp ./$DATABASENAME $CONTAINERID:/var/lib/mysql/
+echo "DONE"
+echo
+#docker cp ../workdir/$DATABASENAME/* $CONTAINERID:/var/lib/mysql/$DATABASENAME
+echo "RESTARTING CONTAINTER"
+docker stop $CONTAINERID
+docker start $CONTAINERID
+echo "DONE"
+echo
+echo "CLEANING ENVIROMENT"
+rm ../workdir/* -drf
+echo
+echo "DONE"
+
+

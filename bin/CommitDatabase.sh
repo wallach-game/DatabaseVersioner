@@ -6,7 +6,7 @@ echo "*****************";
 echo "Currently db have to specifed in this file you are running";
 echo "if you want to not have to press button every time please comment out these lines"
 echo "Press any key to continue";
-read ;
+read -n1;
 
 
 #like this
@@ -26,10 +26,10 @@ SHACOMMITSUM=${SHACOMMITSUMLONG: -10};
 ARCHIVENAME=$SHACOMMITSUM"_"$DATABASENAME;
 #ARCHIVENAME=$SHACOMMITSUM$DATABASENAME;
 
-#docker cp $CONTAINERID:/var/lib/mysql/$DATABASENAME ../output
+docker cp $CONTAINERID:/var/lib/mysql/$DATABASENAME ../workdir
 echo "DATABASE EXTRACTION FINISTED";
 echo "DATABASE PACKAGING STARTED";
-tar -czvf ../commits/$ARCHIVENAME.tar.gz ../output
+tar -czvf ../commits/$ARCHIVENAME.tar.gz ../workdir/*
 echo "DATABASE PACKAGING FINISHED";
-rm ../output/* -rdf
+#rm ../workdir/* -rdf
 echo "ENVIROMENT CLEARED"
