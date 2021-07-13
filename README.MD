@@ -1,6 +1,7 @@
 # Database Versioner
 
 > ### *NOTE*: tool is not working now
+[see issue](https://github.com/wallach-game/DatabaseVersioner/issues/1)
 
 ## Description
 This tool can only be used for **Docker Container** Mysql databases,
@@ -20,6 +21,7 @@ ok i will have to create file system as mentioned, and have to figure out **new 
 
 ## How it works (v0.0.1)
 > ### *NOTE*: tool is not working now
+[see issue](https://github.com/wallach-game/DatabaseVersioner/issues/1)
 
 ### Config
 
@@ -58,5 +60,6 @@ Code steps:
       * database table files (*.ibd) 
     * Database Schema Directory
       * mysql.ibd 
+
 #### Current file system (v0.0.1)
 There is *none* xD, i just realing on tar to create file system and not really think about that
